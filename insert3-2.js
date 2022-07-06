@@ -2,7 +2,8 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let sql = `
-insert into car ("name", "maker_id") values ("NSX", 1);
+insert into place
+("name", "id") values ("埼玉県川越市", 0801);
 `
 
 db.serialize( () => {

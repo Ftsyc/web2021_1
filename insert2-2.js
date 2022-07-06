@@ -1,20 +1,17 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
-let schema = `
-create table place(
-  id integer primary key,
-  name text not null
-);
+let sql = `
+insert into place
+("name", "id") values ("福岡県福岡市", 4301);
 `
 
-
 db.serialize( () => {
-	db.run( schema, (error, row) => {
+	db.run( sql, (error, row) => {
 		if(error) {
 			console.log('Error: ', error );
 			return;
 		}
-		console.log( "テーブルを作成しました" );
+		console.log( "データを追加しました" );
 	});
 });

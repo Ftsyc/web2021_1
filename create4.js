@@ -2,14 +2,12 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let schema = `
-create table store(
-  id integer primary key,
-  name text not null,
-  place_id integer not null,
-  menu_id integer not null
+create table money(
+  menu_id integer primary key,
+  price numeric not null
 );
-
 `
+
 
 db.serialize( () => {
 	db.run( schema, (error, row) => {
