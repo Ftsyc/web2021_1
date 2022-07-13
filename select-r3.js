@@ -2,7 +2,10 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
 let sql = `
-select id, name, id from menu;
+select place.id, place.name, instagram.follower
+from place
+inner join instagram 
+on place.id = instagram.place_id;
 `
 
 db.serialize( () => {
@@ -12,7 +15,7 @@ db.serialize( () => {
 			return;
 		}
 		for( let data of row ) {
-			console.log( data.id + ' : ' + data.name );
+			console.log( data.id + ' : ' + data.name + ' : ' + data.follower );
 		}
 	});
 });
