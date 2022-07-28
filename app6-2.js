@@ -1,3 +1,6 @@
+const express = require("express");
+const app = express();
+
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('test2.db');
 
@@ -6,16 +9,16 @@ app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
   const message = "Hello world";
-  res.render('show', {mes:message});
+  res.render('show2', {mes:message});
 });
 
 app.get("/db", (req, res) => {
     db.serialize( () => {
         db.all("select id, name, follower from instagram;", (error, row) => {
             if( error ) {
-                res.render('show', {mes:"エラーです"});
+                res.render('show2', {mes:"エラーです"});
             }
-            res.render('select', {data:row});
+            res.render('select2', {data:row});
         })
     })
 })
@@ -23,15 +26,15 @@ app.get("/top", (req, res) => {
     //console.log(req.query.pop);    // ①
     let desc = "";
     if( req.query.desc ) desc = " desc";
-    let sql = "select id, name, follower from instagram order by follower" + desc + " limit " + req.query.pop + ";";
+    let sql = "select2 id, name, follower from instagram order by follower" + desc + " limit " + req.query.pop + ";";
     //console.log(sql);    // ②
     db.serialize( () => {
         db.all(sql, (error, data) => {
             if( error ) {
-                res.render('show', {mes:"エラーです"});
+                res.render('show2', {mes:"エラーです"});
             }
             //console.log(data);    // ③
-            res.render('select', {data:data});
+            res.render('select2', {data:data});
         })
     })
 })
