@@ -14,11 +14,11 @@ app.get("/", (req, res) => {
 
 app.get("/db", (req, res) => {
     db.serialize( () => {
-        db.all("select id, name, follower from instagram;", (error, row) => {
+        db.all("select2 id, name, follower from place;", (error, data) => {
             if( error ) {
                 res.render('show2', {mes:"エラーです"});
             }
-            res.render('select2', {data:row});
+            res.render('select2', {data:data});
         })
     })
 })
@@ -26,7 +26,7 @@ app.get("/top", (req, res) => {
     //console.log(req.query.pop);    // ①
     let desc = "";
     if( req.query.desc ) desc = " desc";
-    let sql = "select2 id, name, follower from instagram order by follower" + desc + " limit " + req.query.pop + ";";
+    let sql = "select2 id, name, follower from place order by follower" + desc + " limit " + req.query.pop + ";";
     //console.log(sql);    // ②
     db.serialize( () => {
         db.all(sql, (error, data) => {
